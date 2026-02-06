@@ -16,6 +16,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const {listingschema,reviewSchema}= require("./schema.js");
 const Review = require("./models/review.js"); 
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -28,7 +29,7 @@ const itineraryRoutes = require("./router/itinerary.js");
 app.locals.mapToken = process.env.MAP_TOKEN;
 
 
-const Mongo_Url = "mongodb://127.0.0.1:27017/wanderlust";
+const Mongo_Url = process.env.MONGODB_URL ;
 
 main().then(()=>{
     console.log("connected to DB");
@@ -49,8 +50,20 @@ app.engine("ejs", ejsMate);
 
 
 app.use(express.static(path.join(__dirname,"/public")));
+
+const store = MongoStore.create({ mongoUrl: Mongo_Url
+    ,
+    crypto: {
+    secret: process.env.secret,   
+}, touchAfter: 24 * 3600,
+});
+
+store.on("error", (err)=>  {
+    console.log("Session Store Error", err);
+});
 const sessionOptions ={
-    secret: "mySuperSecretString",
+    store: store,
+    secret: process.env.secret ,
     resave: false,
     saveUninitialized : true,
    cookie: {
