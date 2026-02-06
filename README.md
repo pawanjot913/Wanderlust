@@ -1,5 +1,8 @@
 # 🌍 Wanderlust – Airbnb Clone
 
+## 🚀 Live Demo
+https://wanderlust-qupm.onrender.com/listings
+
 Wanderlust is a full-stack web application inspired by Airbnb that allows users to explore, list, and book unique places to stay. It provides a seamless experience for both property owners and travelers with secure authentication and dynamic listings.
 
 ---
