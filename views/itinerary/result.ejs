@@ -1,0 +1,31 @@
+<% layout("layouts/boilerplate") %>
+<body>
+    
+
+<div class="container mt-5">
+    <h1 class="mb-4">Itinerary for <%= destination %></h1>
+
+    <% itinerary.forEach(day => { %>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4>Day <%= day.day %> - <%= day.date %></h4>
+            </div>
+            <div class="card-body">
+                <% day.activities.forEach(activity => { %>
+                    <div class="mb-3 p-2 border rounded">
+                        <h5><%= activity.time %> - <%= activity.name %></h5>
+                        <p><%= activity.description %></p>
+                        <% if(activity.image) { %>
+                            <img src="<%= activity.image %>" alt="<%= activity.name %>" class="img-fluid rounded" style="max-height:200px;">
+                        <% } %>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    <% }) %>
+
+    <a href="/itinerary" class="btn btn-secondary mt-3">Generate Another Itinerary</a>
+</div>
+
+</body>
+
