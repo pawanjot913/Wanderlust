@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -23,26 +25,7 @@ const user = require("./models/user.js");
 const userRoutes = require("./router/user.js");
 const bookingRoutes = require("./router/Booking"); // ✅ CommonJS require
 const itineraryRoutes = require("./router/itinerary.js");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.locals.mapToken = process.env.MAP_TOKEN;
 
 
 const Mongo_Url = "mongodb://127.0.0.1:27017/wanderlust";
@@ -62,6 +45,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method")); 
 app.engine("ejs", ejsMate);
+
+
 
 app.use(express.static(path.join(__dirname,"/public")));
 const sessionOptions ={
